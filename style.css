@@ -7,8 +7,10 @@
 }
 
 #slider ul {
-  width: 9000px;
-  transition: all 0.5s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transition: left 0.5s ease-in;
 }
 
 #slider li {
