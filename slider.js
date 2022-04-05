@@ -5,16 +5,31 @@ var currentIdx = 0;
 var slideCount = slide.length;
 var prevBtn = document.querySelector('.prevBtn');
 var nextBtn = document.querySelector('.nextBtn');
-var slideWidth = 1000;
+var slideWidth = 100;
+var slideHeight = 0;
 var autoSlider = undefined;
 var pager = document.querySelector('.pager');
 var pagerHTML = '';
 
-// slide 갯수에 따라 ul width 값 구하기
-slider.style.width = slideWidth * slideCount + 'px';
+// slide 높이를 확이하여 부모의 높이 지정
+for(var i = 0; i < slideCount; i++){
+    if(slideHeight < slide[i].offsetHeight){
+        slideHeight = slide[i].offsetHeight;
+    }
+}
 
-// slide 갯수에 따라 pagerBtn 생성
+sliderWrap.style.height = slideHeight + 'px';
+slider.style.height = slideHeight + 'px';
+
+
+// // slide 갯수에 따라 ul width 값 구하기
+// slider.style.width = slideWidth * slideCount + 'px';
+
+// slide가 있으면 가로로 배열
 for(var a = 0; a < slideCount; a++) {
+    slide[a].style.left = a * 100 + '%';
+
+    // slide 갯수에 따라 pagerBtn 생성
     pagerHTML += '<span>' + (a+1) + '</span>';
     pager.innerHTML = pagerHTML;
 }
@@ -22,7 +37,8 @@ var pagerBtn = document.querySelectorAll('.pager span');
 
 // 슬라이드 이동
 function moveSlide(num) {
-    slider.style.left = -num * slideWidth + 'px';
+    slider.style.left = -slideWidth * num + '%';
+    slider.classList.add('animated');
     currentIdx = num;
 
     // 클릭된 요소에만 .active 추가
